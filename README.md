@@ -2,7 +2,11 @@
 
 We present a web-based active learning framework that helps to accelerate the labeling process. After manually labeling some images, the user gets recommendations of further candidates that could potentially be labeled equally (bulk image folder shift). We aim to explore the most efficient 'uncertainty' measure to improve the quality of the recommendations such that all images are sorted with a minimum number of user interactions (clicks).
 
-After a pre-sorting using k-means clustering, the user can label image folders as a starting point for the active learning image shift recommendation process.
+## System Workflow
+
+The starting point of our active learning system is the upload of a folder containing unsorted images. The images are then converted into feature vectors of size 2048 generated from the second but last layer of a VGG16 network pretrained on the ImageNET dataset, and provided in Keras. Next, a presorting using k-means clustering allows to label larger batches of images (folders) in one click. Users only have to go over the folders created by the clustering and name them after looking at the images in the folder and trying to understand what they have in common.
+
+After this (nearly) fully unsupervised image pre-clustering, the system allows for semi-supervised classification using active learning. In several sampling rounds (in the first, the labeled clusters are taken as classes, a specified classification algorithm is executed. The system then queries the user the labels of 250 images it is most uncertain about, based on a selected sampling measure.
 
 ![Labeled foldernames after pre-clustering](https://user-images.githubusercontent.com/85504774/132091919-02d3505c-b94f-4d81-a605-95393f580e77.png)
 
