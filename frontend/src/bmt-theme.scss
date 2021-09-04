@@ -1,0 +1,81 @@
+@import '../node_modules/@angular/material/theming';
+
+@include mat-core();
+/* For use in src/lib/core/theming/_palette.scss */
+$bmt-primary: (
+        50 : #e6e7ea,
+        100 : #bfc2cb,
+        200 : #959aa8,
+        300 : #6b7185,
+        400 : #4b526a,
+        500 : #2b3450,
+        600 : #262f49,
+        700 : #202740,
+        800 : #1a2137,
+        900 : #101527,
+        A100 : #6881ff,
+        A200 : #3556ff,
+        A400 : #022cff,
+        A700 : #0027e7,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #ffffff,
+                400 : #ffffff,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #ffffff,
+                A400 : #ffffff,
+                A700 : #ffffff,
+        )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$bmt-accent: (
+        50 : #efeff2,
+        100 : #d7d8dd,
+        200 : #bcbec7,
+        300 : #a1a4b1,
+        400 : #8c91a0,
+        500 : #787d8f,
+        600 : #707587,
+        700 : #656a7c,
+        800 : #5b6072,
+        900 : #484d60,
+        A100 : #c1cefe,
+        A200 : #8ea6fe,
+        A400 : #5a7cff,
+        A700 : #4168ff,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #000000,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #ffffff,
+        )
+);
+
+
+
+//the first two are the custom palettes we declared above
+$bmt-theme-primary: mat-palette($bmt-primary);
+$bmt-theme-accent: mat-palette($bmt-accent);
+//the third, for the warn color, is the predefined material red palette
+$bmt-theme-warn: mat-palette($mat-red);
+$bmt-theme: mat-light-theme($bmt-theme-primary, $bmt-theme-accent, $bmt-theme-warn);
+@include angular-material-theme($bmt-theme);
