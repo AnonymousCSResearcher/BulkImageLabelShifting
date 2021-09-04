@@ -2,6 +2,15 @@
 
 We present a web-based active learning framework that helps to accelerate the labeling process. After manually labeling some images, the user gets recommendations of further candidates that could potentially be labeled equally (bulk image folder shift). We aim to explore the most efficient 'uncertainty' measure to improve the quality of the recommendations such that all images are sorted with a minimum number of user interactions (clicks).
 
+After a pre-sorting using k-means clustering, the user can label image folders as a starting point for the active learning image shift recommendation process.
+
+![Labeled foldernames after pre-clustering](https://user-images.githubusercontent.com/85504774/132091919-02d3505c-b94f-4d81-a605-95393f580e77.png)
+
+If a user shifts image labels in the active learning process, recommendations of further images that additionally could be shifted based on the selected source and destination are displayed (here: shift from the (German) label 'Socke' to 'Handschuh'). Thus, more images can be moved using fewer user interactions.
+
+<img width="656" alt="Shift more images recommendations" src="https://user-images.githubusercontent.com/85504774/132092010-80a1ef30-4b3a-4bde-a854-b9ead38dc26d.png">
+
+
 ## Evaluation and Results
 
 We conducted experiments using a manually labeled reference dataset to evaluate different combinations of classifiers and uncertainty measures.
