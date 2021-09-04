@@ -1,0 +1,22 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+				 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+				 [mode]="(isHandset$ | async) ? 'over' : 'side'"
+				 [opened]="!(isHandset$ | async)">
+		<mat-toolbar class="mat-elevation-z2">Menu</mat-toolbar>
+		<mat-nav-list>
+			<a routerLink="/home" mat-list-item>
+				<mat-icon class="mr-2">home</mat-icon>
+				Home
+			</a>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+
+		<app-loader></app-loader>
+		<div class="container-fluid pt-3">
+			<ng-content></ng-content>
+		</div>
+		<!-- Add Content Here -->
+	</mat-sidenav-content>
+</mat-sidenav-container>

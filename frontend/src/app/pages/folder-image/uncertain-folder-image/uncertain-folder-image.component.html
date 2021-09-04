@@ -1,0 +1,86 @@
+<mat-toolbar color="primary">
+	<span *ngIf="ml.accuracy" class="ml-3"> | Accuracy: <b>{{ml.accuracy.accuracy}}</b> </span>
+	<span *ngIf="completeness" class="ml-3">| Completeness: <b>{{completeness.completeness}}</b> </span>
+	<button *ngIf="learningCurve?.learning_curve" class="ml-3" (click)="showDialogLearningCurve()" mat-mini-fab>
+		<mat-icon>show_chart</mat-icon>
+	</button>
+</mat-toolbar>
+<div class="row">
+	<div class="col-md-4">
+		<a style="cursor: pointer" (click)="goBack()">
+			<mat-icon>arrow_back</mat-icon>
+		</a>
+	</div>
+	<div *ngIf="renderedImages?.length == 0" class="col-md-4">
+		<h3>No images available. Go back to classify images</h3>
+	</div>
+</div>
+<div class="row" *ngIf="renderedImages?.length">
+	<div class="col-md-12">
+		<div class="viewport">
+			<div class="row">
+				<div *ngFor="let image of renderedImages; let idx = index;
+				 let i = index"
+					 class="col-xl-2 m-3">
+					<mat-card class="example-card">
+						<mat-card-header>
+							<mat-card-title>Actual Label</mat-card-title>
+							<mat-card-subtitle style="color: green;">{{image.act_lab}}</mat-card-subtitle>
+							<mat-card-title>Current Label</mat-card-title>
+							<mat-card-subtitle style="color: blue;">
+
+								{{image.curr_lab}}</mat-card-subtitle>
+							<mat-card-title>Recommended Labels
+							</mat-card-title>
+							<mat-card-subtitle><a
+									[style.color]="image.act_lab == pred_lab? 'green':'orange'"
+									style="cursor: pointer;"
+									(click)="moveImageToFolder(catName,image.curr_lab,image.idx,pred_lab,idx,image.file,dictionary,pageIndex*pageSize+idx,rec_label_index)"
+									*ngFor="let pred_lab of image.pred_labs; let rec_label_index = index">{{pred_lab}}
+
+								<span
+										*ngIf="i != image.pred_labs.length">|</span> </a>
+							</mat-card-subtitle>
+
+
+							<mat-card-title>Remaining Labels
+							</mat-card-title>
+							<mat-card-subtitle><a [style.color]="image.act_lab == rest_lab? 'green':'red'"
+												  (click)="moveImageToFolder(catName,image.curr_lab,image.idx,rest_lab,idx,image.file,dictionary,pageIndex*pageSize+idx,rec_label_index)"
+												  style="cursor:pointer;"
+												  *ngFor="let rest_lab of image.rest_labs; let rec_label_index = index">{{rest_lab}}
+
+								<span
+										*ngIf="i != image.rest_labs.length">|</span> </a>
+							</mat-card-subtitle>
+
+						</mat-card-header>
+						<div class="img">
+							<img [src]="'data:image/png;base64,'+image.data">
+						</div>
+
+						<mat-card-content>
+							<p class="text pt-2">
+								{{images?.candidates[pageIndex * pageSize + i]?.file}}
+							</p>
+
+						</mat-card-content>
+					</mat-card>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-11">
+				<mat-paginator [length]="images?.candidates.length"
+							   [pageSize]="pageSize"
+							   [pageIndex]="pageIndex"
+							   [pageSizeOptions]="pageSizeOptions"
+							   (page)="getData($event)">
+				</mat-paginator>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

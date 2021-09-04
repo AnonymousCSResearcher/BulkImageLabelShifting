@@ -1,0 +1,122 @@
+<mat-toolbar color="primary">
+	<span *ngIf="ml.accuracy" class="ml-3"> | Accuracy: <b>{{ml.accuracy.accuracy}}</b> </span>
+	<span *ngIf="completeness" class="ml-3"> | Completeness: <b>{{completeness.completeness}}</b> </span>
+</mat-toolbar>
+<div class="row">
+	<div class="col-lg-10">
+		<div class="viewport">
+			<div class="row">
+				<div *ngFor="let image of renderedImages;
+				 let i = index"
+					 class="col-xl-2 m-3">
+					<mat-card class="example-card">
+						<mat-card-header>
+							<mat-card-title>#{{pageIndex * pageSize + i + 1}} </mat-card-title>
+						</mat-card-header>
+						<div class="img">
+							<img [src]="'data:image/png;base64,'+image">
+						</div>
+
+						<mat-card-content>
+							<p class="text pt-2">
+								{{images?.files[pageIndex * pageSize + i]}}
+							</p>
+
+						</mat-card-content>
+						<mat-card-footer>
+							<mat-form-field>
+								<mat-label>Select folder to move in</mat-label>
+								<mat-select #matSelect>
+									<mat-option [disabled]="fold==currentFolder"
+												*ngFor="let fold of folderNames?.folderNames" [value]="fold">
+										<div disabled="true">{{fold}}</div>
+									</mat-option>
+								</mat-select>
+
+							</mat-form-field>
+							<button [disabled]="!matSelect.value"
+									(click)="moveImageToFolder(catName,currentFolder,matSelect.value,pageIndex*pageSize+i)"
+									mat-raised-button
+									class="w-100" color="primary">Move
+							</button>
+						</mat-card-footer>
+
+					</mat-card>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-lg-11">
+				<mat-paginator [length]="images?.data.length"
+							   [pageSize]="pageSize"
+							   [pageIndex]="pageIndex"
+							   [pageSizeOptions]="pageSizeOptions"
+							   (page)="getData($event)">
+				</mat-paginator>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="col-lg-2">
+		<div class="viewport">
+			<div class="row">
+				<div *ngIf="folderNames" class="w-100 mr-4">
+					<mat-nav-list class="bordered">
+						<h3 mat-subheader>Folders from : {{catName}}</h3>
+						<mat-list-item
+								[ngStyle]="{'background-color':currentFolder == fold ? 'beige':'' }"
+								*ngFor="let fold of folderNames?.folderNames; let i = index">
+							<a style="height: 30px;" matLine
+							   (click)="isActive(fold)"
+							   [routerLink]="['../../'+fold+'/'+dictionary]">{{fold}}</a>
+
+							<button mat-icon-button (click)="edit(fold)">
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button mat-icon-button (click)="delete(fold)">
+								<mat-icon>delete</mat-icon>
+							</button>
+							<mat-divider></mat-divider>
+						</mat-list-item>
+					</mat-nav-list>
+					<mat-nav-list class="bordered mt-2">
+						<h3 matSubheader>Create a new folder</h3>
+						<mat-list-item>
+							<input [(ngModel)]="newFolderName" matInput placeholder="Foldername">
+							<button [disabled]="newFolderName.trim() == ''"
+									(click)="createNewFolder()" mat-icon-button>
+								<mat-icon>add</mat-icon>
+							</button>
+						</mat-list-item>
+					</mat-nav-list>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2" *ngIf="ml.accuracy">
+			<button (click)="navigateToUnceratin()"
+					class="w-75 mt-2"
+					mat-raised-button
+					color="primary">Uncertain candidates
+			</button>
+		</div>
+		<div class="row">
+			<button (click)="classify()"
+					class="w-75 mt-2"
+					mat-raised-button
+					color="primary">Classify
+			</button>
+		</div>
+		<div class="row">
+			<button (click)="saveDict()"
+					class="w-75 mt-2"
+					mat-raised-button
+					color="primary">
+				Save state
+				<mat-icon>save_alt</mat-icon>
+			</button>
+		</div>
+
+	</div>
+</div>
+

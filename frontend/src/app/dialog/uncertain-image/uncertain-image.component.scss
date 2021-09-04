@@ -1,0 +1,46 @@
+.text {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden; /* "overflow"-Wert darf nicht "visible" sein */
+  text-overflow: ellipsis;
+
+}
+
+.example-card {
+  text-align: center;
+  //height: 350px;
+  //width: 250px;
+}
+
+div.img {
+  height: 120px;
+
+  img {
+    max-height: 120px;
+    max-width: 100px;
+  }
+}
+
+
+.list-item {
+  cursor: pointer;
+}
+
+.bordered {
+  border: 2px solid #cccccc;
+  border-radius: 5px;
+
+}
+
+mat-card-title{
+  font-size: 16px !important;
+}
+mat-card-subtitle{
+  font-size: 12px !important;
+}
+
+.viewport{
+  height: 650px;
+  width: 100%;
+  overflow-y: scroll;
+}

@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-md-4">
+		<mat-list>
+			<h3 mat-subheader>Catalogs</h3>
+			<mat-list-item
+					(click)="getAllSortDict(catObj.catalog_name)"
+					*ngFor="let catObj of catalogObj?.path_array"
+					style="cursor: pointer;">
+				<mat-icon mat-list-icon>folder</mat-icon>
+				<h4 mat-line>{{catObj.catalog_name }}</h4>
+				<mat-divider></mat-divider>
+			</mat-list-item>
+		</mat-list>
+	</div>
+	<div class="col-md-4" *ngIf="dictionary">
+		<mat-list>
+			<h3 mat-subheader>Sortings</h3>
+			<mat-list-item
+					(click)="getTimeStamp(catalogname,dict)"
+					style="cursor: pointer;"
+					*ngFor="let dict of dictionary.sort_dict">
+				<mat-icon mat-list-icon>collections_bookmark</mat-icon>
+				<h4 mat-line>{{dict | slice:0:-5}}</h4>
+				<mat-divider></mat-divider>
+			</mat-list-item>
+		</mat-list>
+	</div>
+	<div class="col-md-4" *ngIf="timeStamps?.timeStamp.length">
+		<mat-list>
+			<h3 mat-subheader>Versions</h3>
+			<mat-list-item
+					(click)="navigateToFolder(catalogname,tmp,dictionaryName)"
+					style="cursor: pointer;"
+					*ngFor="let tmp of timeStamps.timeStamp">
+				<mat-icon mat-list-icon>collections_bookmark</mat-icon>
+				<h4 mat-line>{{tmp | slice:0:-5}}</h4>
+				<mat-divider></mat-divider>
+			</mat-list-item>
+		</mat-list>
+	</div>
+</div>
+

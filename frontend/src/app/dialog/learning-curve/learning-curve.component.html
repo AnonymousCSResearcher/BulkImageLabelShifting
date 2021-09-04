@@ -1,0 +1,9 @@
+<div class="col-md-12" *ngIf="learningCurve?.learning_curve">
+	<div class="row mt-5">
+		<img [src]="'data:image/png;base64,'+learningCurve.learning_curve">
+	</div>
+	<div class="row mt-5">
+		<span *ngIf="accuracy">Accuracy: <b>{{accuracy}}</b></span>
+		<span *ngIf="completeness">| Completeness: <b>{{completeness.completeness}}</b></span>
+	</div>
+</div>

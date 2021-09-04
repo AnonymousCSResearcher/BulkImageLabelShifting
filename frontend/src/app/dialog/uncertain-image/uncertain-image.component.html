@@ -1,0 +1,80 @@
+<span style="size: 12px"
+	  *ngIf="currentLabel && recommendedLabel">Move more images from <b>{{currentLabel}}</b> to <b>{{recommendedLabel}}</b> | ({{renderedImages?.length}}
+	images)</span>
+<div class="row" *ngIf="renderedImages?.length">
+	<div class="col-md-12">
+		<div class="viewport">
+			<div class="row">
+				<div *ngFor="let image of renderedImages; let idx = index"
+					 class="col-xl-2 m-3">
+					<mat-card class="example-card">
+						<mat-card-header>
+							<mat-card-title>Actual Label</mat-card-title>
+							<mat-card-subtitle style="color: green;">{{image.act_lab}}</mat-card-subtitle>
+							<mat-card-title>Current Label</mat-card-title>
+							<mat-card-subtitle style="cursor: pointer;color: blue;">
+								{{image.curr_lab}}</mat-card-subtitle>
+							<mat-card-title>Recommended Labels
+							</mat-card-title>
+							<mat-card-subtitle>
+								<a (click)="moveImageToFolder(catName,image.curr_lab,image.idx,pred_lab,idx,image.file,dictionary)"
+								   style="cursor: pointer;color: orange;"
+								   [style.color]="image.act_lab == pred_lab? 'green':'orange'"
+								   *ngFor="let pred_lab of image.pred_labs; ">{{pred_lab}}
+									<span
+											*ngIf="idx != image.pred_labs.length">|</span> </a>
+							</mat-card-subtitle>
+
+							<mat-card-title>Remaining Labels
+							</mat-card-title>
+							<mat-card-subtitle>
+								<a (click)="moveImageToFolder(catName,image.curr_lab,image.idx,rest_lab,idx,image.file,dictionary)"
+								   style="cursor: pointer;color: red;"
+								   [style.color]="image.act_lab == rest_lab? 'green':'red'"
+								   *ngFor="let rest_lab of image.rest_labs; ">{{rest_lab}} <span
+										*ngIf="idx != image.rest_labs.length">|</span> </a>
+							</mat-card-subtitle>
+
+						</mat-card-header>
+						<div class="img">
+							<img [src]="'data:image/png;base64,'+image.data">
+						</div>
+
+						<mat-card-content>
+							<p class="text pt-2">
+								{{image.file}}
+							</p>
+
+						</mat-card-content>
+						<!--						<mat-card-footer>-->
+						<!--							<mat-form-field>-->
+						<!--								<mat-label>Select folder to move in</mat-label>-->
+						<!--								<mat-select #matSelect [value]="recommendedLabel">-->
+						<!--									<mat-option [disabled]="fold==image.curr_lab"-->
+						<!--												*ngFor="let fold of folderNames?.folderNames; let i = index;"-->
+						<!--												[value]="fold">-->
+						<!--										<div disabled="true">{{fold}}</div>-->
+						<!--									</mat-option>-->
+						<!--								</mat-select>-->
+
+						<!--							</mat-form-field>-->
+						<!--							<mat-card-actions>-->
+						<!--								<button [disabled]="!matSelect.value"-->
+						<!--										mat-raised-button-->
+						<!--										(click)="moveImageToFolder(catName,image.curr_lab,image.idx,matSelect.value,idx,image.file,dictionary)"-->
+						<!--										color="warn">Move-->
+						<!--								</button>-->
+						<!--							</mat-card-actions>-->
+						<!--						</mat-card-footer>-->
+					</mat-card>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div mat-dialog-actions align="end">
+	<button mat-raised-button color="primary" (click)="onNoClick(true)">Cancel</button>
+	<button mat-raised-button color="warn" (click)="moveAllImagesofFolder()">Move {{renderedImages?.length}} images
+	</button>
+</div>

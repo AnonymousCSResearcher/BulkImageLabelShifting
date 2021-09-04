@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Rename folder </h1>
+<div mat-dialog-content>
+	<p>Current folder name is: <b>{{data.currentFolderName}}</b></p>
+	<mat-form-field>
+		<input matInput placeholder="New folder name:" [(ngModel)]="newFolderName">
+	</mat-form-field>
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="onNoClick()">Cancel</button>
+	<button mat-button [mat-dialog-close]="newFolderName" cdkFocusInitial="true">Rename</button>
+</div>
